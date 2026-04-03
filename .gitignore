@@ -1,0 +1,90 @@
+# ========================================
+# USED CAR PREDICTION — ROOT .gitignore
+# ========================================
+
+# ── Python / Backend ──────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+*.whl
+
+# Unit test / coverage
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# Logs
+*.log
+logs/
+
+# ── Node / Frontend ───────────────────────
+node_modules/
+Frontend/node_modules/
+
+# Vite build output
+Frontend/dist/
+Frontend/.vite/
+
+# Local env files (Vite)
+Frontend/.env
+Frontend/.env.local
+Frontend/.env.*.local
+
+# ── OS & Editor ───────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# ── ML Models (optional) ──────────────────
+# Uncomment below if you don't want to commit large model files.
+# Use Git LFS or store them in cloud storage (S3/GDrive) instead.
+# Used Car Prediction/models/*.pkl
+
+# ── Misc ──────────────────────────────────
+*.bak
+*.swp
+*.tmp
+*.temp
+.gemini/
