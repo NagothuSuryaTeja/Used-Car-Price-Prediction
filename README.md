@@ -1,50 +1,123 @@
-# 🚗 CarValue — Used Car Price Prediction
+# 🚗 Used Car Price Prediction
 
-> An end-to-end Machine Learning web application that predicts the **market resale value** of a used car using an XGBoost regression model, served through a Flask REST API and a modern React frontend.
+
+A full-stack machine learning web application that predicts the market price of used cars based on 10 key vehicle features. Built with a **React (Vite)** frontend and a **Flask** backend powered by an **Machine Learning**  model - fully deployed on **Render**.
 
 ---
 
 ## 📋 Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Tech Stack](#tech-stack)
-3. [Project Structure](#project-structure)
-4. [Machine Learning Pipeline](#machine-learning-pipeline)
-   - [Dataset](#dataset)
-   - [Exploratory Data Analysis](#exploratory-data-analysis)
-   - [Data Preprocessing](#data-preprocessing)
-   - [Model Training](#model-training)
-   - [Model Artifacts](#model-artifacts)
-5. [Backend — Flask API](#backend--flask-api)
-   - [Setup & Installation](#setup--installation)
-   - [API Endpoints](#api-endpoints)
-   - [Running the Server](#running-the-server)
-6. [Frontend — React App](#frontend--react-app)
-   - [Setup & Installation](#setup--installation-1)
-   - [Pages & Routing](#pages--routing)
-   - [Design System](#design-system)
-   - [Running the Dev Server](#running-the-dev-server)
-7. [How to Run the Full App](#how-to-run-the-full-app)
-8. [Input Features Reference](#input-features-reference)
-9. [API Reference](#api-reference)
-10. [Screenshots](#screenshots)
-
----
+1. Project Overview
+2. Tech Stack
+3. Project Structure
+4. Machine Learning Pipeline
+   - Dataset
+   - Exploratory Data Analysis
+   - Data Preprocessing
+   - Model Training
+   - Model Artifacts
+5. Backend - Flask API
+   - Setup & Installation
+   - Running the Server
+6. Frontend - React App
+   - Setup & Installation
+   - Running the Dev Server
+7. How to Run the Full App
+8. Input Features Reference
+9. Dependencies
+10. Deployment
+11. Live Demo
 
 ## Project Overview
 
 **CarValue** is a full-stack AI application that allows users to get an instant price estimate for a used car by entering its specifications. The prediction is powered by an **XGBoost Regressor** trained on the **CarDekho dataset** (~15,000 listings), achieving high accuracy by analyzing 10 key vehicle features.
 
-### Key Features
-- 🤖 **AI Prediction** — XGBoost model with preprocessing pipeline
-- ⚡ **Instant Results** — Predictions returned in under 1 second
-- 🎨 **Premium UI** — Dark-themed glassmorphism React frontend
-- 🔗 **REST API** — Flask backend with CORS support
-- 📱 **Responsive** — Works across desktop and mobile
+---
+
+
+## 🖥️ Tech Stack
+
+### Frontend
+| Technology | Version | Purpose |
+|---|---|---|
+| React | ^19.2.4 | UI framework |
+| React Router DOM | ^7.14.0 | Client-side routing |
+| Vite | ^8.0.1 | Build tool & dev server |
+| Axios | ^1.14.0 | HTTP client |
+| Vanilla CSS | — | Styling |
+
+### Backend
+| Technology | Purpose |
+|---|---|
+| Flask | REST API server |
+| Flask-CORS | Cross-origin request handling |
+| XGBoost | Price prediction ML model |
+| scikit-learn | Preprocessing pipeline |
+| pandas | Data manipulation |
+| numpy | Numerical operations |
+| pickle | Model serialization |
 
 ---
 
-## Tech Stack
+
+## 📁 Project Structure
+
+```
+Used Car Price Prediction/
+│
+├── Frontend/                          # React + Vite frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── api/
+│   │   │   └── predict.js             # API call to Flask backend
+│   │   ├── components/
+│   │   │   ├── Navbar.jsx             # Navigation bar
+│   │   │   ├── Navbar.css
+│   │   │   ├── Footer.jsx             # Footer
+│   │   │   └── Footer.css
+│   │   ├── pages/
+│   │   │   ├── LandingPage.jsx        # Home / landing page
+│   │   │   ├── LandingPage.css
+│   │   │   ├── PredictionPage.jsx     # Input form page
+│   │   │   ├── PredictionPage.css
+│   │   │   ├── ResultPage.jsx         # Prediction result page
+│   │   │   └── ResultPage.css
+│   │   ├── App.jsx                    # Router setup
+│   │   ├── main.jsx
+│   │   ├── index.css
+│   │   └── App.css
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
+│
+└── Used Car Price Prediction/         # Flask backend
+    ├── app.py                         # Flask API server
+    ├── requirements.txt               # Python dependencies
+    ├── .env.example                   # Environment variable template
+    ├── models/
+    │   ├── Xgboost_Regressor_model.pkl   # Trained XGBoost model
+    │   ├── preprocessor.pkl              # Feature preprocessor
+    │   └── LabelEncoder.pkl              # Label encoder for car model
+    ├── utils/
+    │   └── utils.py                   # Prediction helper function
+    ├── notebooks/                     # Jupyter notebooks (EDA & training)
+    └── data/                          # Dataset files
+```
+
+---
+
+<!-- ## ✨ Features
+
+- 🤖 **AI-Powered Predictions** — XGBoost regression model trained on real used car data
+- 📋 **10-Feature Input Form** — Captures all key variables that influence car price
+- ✅ **Client-side Validation** — Real-time form validation with user-friendly error messages
+- 📱 **Responsive Design** — Works seamlessly on desktop and mobile
+- ⚡ **Fast & Modern UI** — Built with React 19 and Vite 8 for lightning-fast performance
+- 🌐 **Fully Deployed** — Both frontend and backend hosted on Render
+
+--- -->
+
+## Machine Learning Pipeline
 
 | Layer | Technology |
 |---|---|
@@ -58,64 +131,7 @@
 
 ---
 
-## Project Structure
-
-```
-New folder/
-│
-├── Used Car Prediction/          # Backend + ML
-│   ├── app.py                    # Flask REST API
-│   ├── requirements.txt          # Python dependencies
-│   │
-│   ├── data/
-│   │   └── cardekho_imputated.csv    # Cleaned dataset (15,411 rows)
-│   │
-│   ├── models/                       # Trained model artifacts
-│   │   ├── Xgboost_Regressor_model.pkl
-│   │   ├── preprocessor.pkl
-│   │   └── LabelEncoder.pkl
-│   │
-│   ├── notebooks/
-│   │   └── used_car_prediction.ipynb # Full ML pipeline notebook
-│   │
-│   └── utils/
-│       ├── __init__.py
-│       └── utils.py              # Prediction helper function
-│
-└── Frontend/                     # React Frontend
-    ├── index.html                # HTML entry point with SEO meta tags
-    ├── package.json
-    ├── vite.config.js
-    │
-    └── src/
-        ├── main.jsx              # React entry point
-        ├── App.jsx               # Router configuration
-        ├── index.css             # Global design system & CSS tokens
-        ├── App.css
-        │
-        ├── api/
-        │   └── predict.js        # Fetch wrapper for /predict endpoint
-        │
-        ├── components/
-        │   ├── Navbar.jsx        # Fixed navigation bar
-        │   ├── Navbar.css
-        │   ├── Footer.jsx        # Footer with links
-        │   └── Footer.css
-        │
-        └── pages/
-            ├── LandingPage.jsx   # Hero + Features + How It Works + CTA
-            ├── LandingPage.css
-            ├── PredictionPage.jsx # Car details form (10 inputs)
-            ├── PredictionPage.css
-            ├── ResultPage.jsx    # Animated price result display
-            └── ResultPage.css
-```
-
----
-
-## Machine Learning Pipeline
-
-### Dataset
+## Dataset
 
 - **Source**: CarDekho dataset (`cardekho_imputated.csv`)
 - **Size**: 15,411 rows × 13 columns (after cleaning)
@@ -182,26 +198,85 @@ All trained artifacts are stored in `Used Car Prediction/models/`:
 
 ---
 
-## Backend — Flask API
+---
 
-### Setup & Installation
 
-**Prerequisites**: Python 3.8+, `pip`
 
+## 🛠️ Local Development Setup
+
+### Prerequisites
+- Node.js ≥ 18
+- Python ≥ 3.9
+- pip
+
+### 1. Clone the Repository
 ```bash
-# Navigate to the backend folder
-cd "Used Car Prediction"
+git clone https://github.com/NagothuSuryaTeja/Used-Car-Price-Prediction.git
 
-# (Recommended) Create and activate a virtual environment
+cd Used-Car-Price-Prediction
+```
+
+### 2. Backend Setup
+```bash
+cd "Used Car Price Prediction"
+
+# Create and activate virtual environment
+
 python -m venv venv
+
 venv\Scripts\activate        # Windows
-# source venv/bin/activate   # macOS/Linux
+
+source venv/bin/activate   # macOS/Linux
 
 # Install dependencies
 pip install -r requirements.txt
-```
 
-**`requirements.txt`:**
+# Set up environment variables
+copy .env.example .env       # Windows
+# cp .env.example .env       # macOS/Linux
+
+# Run the Flask server
+python app.py
+```
+Backend will be available at: `http://localhost:5000`
+
+### 3. Frontend Setup
+```bash
+cd Frontend
+
+# Install dependencies
+npm install
+
+# Update API base URL for local dev (in src/api/predict.js)
+# Uncomment: const API_BASE_URL = 'http://localhost:5000';
+# Comment out the production URL
+
+# Run the dev server
+npm run dev
+```
+Frontend will be available at: `http://localhost:5173`
+
+---
+
+### Input Features
+
+| Feature | Type | Description |
+|---|---|---|
+| `model` | Categorical | Car model name (e.g., Swift, Creta, Nexon) |
+| `vehicle_age` | Integer | Age of the vehicle in years |
+| `km_driven` | Integer | Total kilometers driven |
+| `seller_type` | Categorical | Individual / Dealer / Trustmark Dealer |
+| `fuel_type` | Categorical | Petrol / Diesel / CNG / LPG / Electric |
+| `transmission_type` | Categorical | Manual / Automatic |
+| `mileage` | Float | Fuel efficiency in km/l |
+| `engine` | Integer | Engine displacement in CC |
+| `max_power` | Float | Maximum power output in bhp |
+| `seats` | Integer | Number of seating capacity |
+
+
+## 📦 Dependencies
+
+### Backend (`requirements.txt`)
 ```
 ipykernel
 pandas
@@ -215,280 +290,53 @@ flask
 flask-cors
 ```
 
-### API Endpoints
-
-#### `GET /`
-Returns a welcome message confirming the API is running.
-
-**Response:**
-```
-Welcome To The Used Car Prediction API
-```
-
----
-
-#### `POST /predict`
-Accepts car feature data and returns a predicted selling price.
-
-**Request Body (JSON):**
+### Frontend (`package.json`)
 ```json
 {
-  "model": "i20",
-  "vehicle_age": 5,
-  "km_driven": 60000,
-  "seller_type": "Individual",
-  "fuel_type": "Petrol",
-  "transmission_type": "Manual",
-  "mileage": 17.0,
-  "engine": 1197,
-  "max_power": 80.0,
-  "seats": 5
-}
-```
-
-**Success Response (200):**
-```json
-{
-  "predicted_price": 645000,
-  "status": "success"
-}
-```
-
-**Error Response (400/500):**
-```json
-{
-  "error": "Missing field: fuel_type",
-  "status": "error"
-}
-```
-
-### Running the Server
-
-```bash
-# From inside "Used Car Prediction/" directory
-python app.py
-```
-
-The server starts at: **`http://127.0.0.1:5000`**
-
-> ⚠️ **Note**: This is a Flask development server. Do not use in production. Use Gunicorn or uWSGI for deployment.
-
-**How `utils/utils.py` works:**
-
-```python
-def prediction(items):
-    C = pd.DataFrame(items)
-    # Load artifacts
-    preprocessor = pickle.load(open('./models/preprocessor.pkl', 'rb'))
-    model        = pickle.load(open('./models/Xgboost_Regressor_model.pkl', 'rb'))
-    encoder      = pickle.load(open('./models/LabelEncoder.pkl', 'rb'))
-    # Transform and predict
-    C['model'] = encoder.transform(C['model'])
-    C = preprocessor.transform(C)
-    pred = model.predict(C)
-    return int(pred[0])
-```
-
----
-
-## Frontend — React App
-
-### Setup & Installation
-
-**Prerequisites**: Node.js 18+, npm
-
-```bash
-# Navigate to the frontend folder
-cd Frontend
-
-# Install dependencies
-npm install
-```
-
-**Key Dependencies:**
-```json
-{
-  "react": "^18.x",
-  "react-dom": "^18.x",
-  "react-router-dom": "^7.x",
-  "vite": "^8.x"
-}
-```
-
-### Pages & Routing
-
-The app uses **React Router DOM** with three routes:
-
-| Route | Component | Description |
-|---|---|---|
-| `/` | `LandingPage.jsx` | Marketing landing page |
-| `/predict` | `PredictionPage.jsx` | Car details input form |
-| `/result` | `ResultPage.jsx` | Animated price result display |
-
-#### 🏠 Landing Page (`/`)
-
-Sections:
-- **Navbar** — Fixed glassmorphism navigation with logo and CTA
-- **Hero** — Headline, subtext, CTA buttons, stats bar (15K+ analyzed, 94% accuracy, <1s response), animated mock price card
-- **Features** — 4-card grid (Instant Results, High Accuracy, No Sign-up, 10+ Features)
-- **How It Works** — 3-step process (Enter Details → AI Analyzes → Get Estimate)
-- **CTA Banner** — Call-to-action with glow effect
-- **Footer** — Brand info, navigation links, model info
-
-#### 📋 Prediction Form (`/predict`)
-
-- Organized into two sections: *Car Identification* and *Vehicle Specifications*
-- All 10 model features as form controls (dropdowns + number inputs)
-- Client-side validation with inline error messages
-- Loading spinner during API call
-- Error banner for API/network failures
-- On success → navigates to `/result` passing price + car details via router state
-
-#### 🎯 Result Page (`/result`)
-
-- Redirects to `/predict` if accessed directly without data
-- **Animated price count-up** — smooth cubic ease-out animation from ₹0 to the predicted value
-- **Market range bar** — Visual indicator showing ±10% typical price range
-- **Car details grid** — All 10 submitted features displayed with emoji icons
-- **Action buttons** — "Predict Another Car" and "Back to Home"
-- **Disclaimer** note about estimate accuracy
-
-### Design System
-
-Defined in `src/index.css`:
-
-```css
-:root {
-  --bg-primary:        #050812;          /* Deep dark background */
-  --bg-secondary:      #0d1224;          /* Card backgrounds */
-  --accent-violet:     #6c63ff;          /* Primary accent */
-  --accent-cyan:       #00d4ff;          /* Secondary accent */
-  --accent-gradient:   linear-gradient(135deg, #6c63ff, #00d4ff);
-  --text-primary:      #f0f2ff;
-  --text-secondary:    #a0aec0;
-  --radius-lg:         24px;
-  --transition:        all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-```
-
-**Design Elements:**
-- **Glassmorphism cards** — `backdrop-filter: blur(20px)` with subtle borders
-- **Floating orbs** — Animated radial gradient blobs in background
-- **Micro-animations** — `fadeInUp`, `scaleIn`, `float`, `pulse`
-- **Typography** — [Inter](https://fonts.google.com/specimen/Inter) from Google Fonts
-- **Custom scrollbar** — Violet-accented thin scrollbar
-
-### Running the Dev Server
-
-```bash
-cd Frontend
-npm run dev
-```
-
-Opens at: **`http://localhost:5173`**
-
----
-
-## How to Run the Full App
-
-Run **both** services simultaneously in separate terminals:
-
-### Terminal 1 — Flask Backend
-
-```bash
-cd "Used Car Prediction"
-venv\Scripts\activate
-python app.py
-# → Running on http://127.0.0.1:5000
-```
-
-### Terminal 2 — React Frontend
-
-```bash
-cd Frontend
-npm run dev
-# → Running on http://localhost:5173
-```
-
-Then open **http://localhost:5173** in your browser.
-
-> The frontend is pre-configured to call `http://localhost:5000/predict`. Make sure the Flask server is running before submitting the form.
-
-**Full User Flow:**
-
-```
-Landing Page (/)
-    ↓  Click "Estimate My Car's Price"
-Prediction Form (/predict)
-    ↓  Fill in 10 fields + click "Predict Price"
-    ↓  POST http://localhost:5000/predict
-    ↓  Flask → loads .pkl → XGBoost → returns price
-Result Page (/result)
-    ↓  Animated count-up of predicted price
-    ↓  Car details grid + market range bar
-```
-
----
-
-## Input Features Reference
-
-| Feature | Type | Valid Values | Example |
-|---|---|---|---|
-| `model` | string | Any car model name | `"i20"` |
-| `vehicle_age` | integer | 0–30 (years) | `5` |
-| `km_driven` | integer | ≥ 0 | `60000` |
-| `seller_type` | string | `"Individual"`, `"Dealer"`, `"Trustmark Dealer"` | `"Individual"` |
-| `fuel_type` | string | `"Petrol"`, `"Diesel"`, `"CNG"`, `"LPG"`, `"Electric"` | `"Petrol"` |
-| `transmission_type` | string | `"Manual"`, `"Automatic"` | `"Manual"` |
-| `mileage` | float | > 0 (km/l) | `17.0` |
-| `engine` | integer | > 0 (CC) | `1197` |
-| `max_power` | float | > 0 (bhp) | `80.0` |
-| `seats` | integer | 2, 4, 5, 6, 7, 8, 9, 10 | `5` |
-
----
-
-## API Reference
-
-### `POST /predict`
-
-```bash
-curl -X POST http://localhost:5000/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "i20",
-    "vehicle_age": 5,
-    "km_driven": 60000,
-    "seller_type": "Individual",
-    "fuel_type": "Petrol",
-    "transmission_type": "Manual",
-    "mileage": 17.0,
-    "engine": 1197,
-    "max_power": 80.0,
-    "seats": 5
-  }'
-```
-
-**Response:**
-```json
-{
-  "predicted_price": 645000,
-  "status": "success"
+  "dependencies": {
+    "axios": "^1.14.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.14.0"
+  }
 }
 ```
 
 ---
 
-## Screenshots
+## ☁️ Deployment (Render)
 
-### Landing Page
-The hero section features an animated stats bar, a live preview card showing a sample prediction, and a clear call-to-action.
+Both services are deployed on [Render](https://render.com).
 
-### Prediction Form
-Two-section form (Car Identification + Vehicle Specifications) with validation, placeholders, and a prominent "Predict Price" button.
+## 🌐 Live Demo
 
-### Result Page
-Animated count-up price in large gradient text, a visual market range bar (±10%), and a full breakdown of the analyzed car features.
+| Service  | URL |
+|----------|-----|
+| **Frontend** | [https://used-car-price-prediction-frontend.onrender.com/](https://used-car-price-prediction-frontend.onrender.com/) |
+| **Backend API** | [https://used-car-price-prediction-j0je.onrender.com/](https://used-car-price-prediction-j0je.onrender.com/) |
 
 ---
 
-> Built with ❤️ using Python, Flask, XGBoost, React, and Vite.
+<h1 style="text-align:center">Project images</h1>
+
+# Landing Page
+
+<a href="./Frontend/src/assets/Landingpage.png"><center><img src="./Frontend/src/assets/Landingpage.png" alt="Alt Text" width="800"></center></a>
+
+# Prediction Page
+<a href="./Frontend/src/assets/prediction.png"><center><img src="./Frontend/src/assets/prediction.png" alt="Alt Text" width="800"></center><a>
+
+# Result Page
+<a href="./Frontend/src/assets/result.png"><center><img src="./Frontend/src/assets/result.png" alt="Alt Text" width="800"></center><a>
+
+
+## 👤 Author
+
+**Nagothu Surya Teja**
+- GitHub: [NagothuSuryaTeja](https://github.com/NagothuSuryaTeja)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
